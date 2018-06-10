@@ -21,4 +21,43 @@ struct CoreDataHelper {
         
         return context
     }()
+    
+  // Inserts a new task into the Core Data Model
+    static func newTask() -> Task {
+        let task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context) as! Task
+        
+        return task
+    }
+    
+    static func saveTask() {
+        do {
+            try context.save()
+        } catch let error {
+            print("Could not save \(error.localizedDescription)")
+        }
+    }
+    
+    
+    static func delete(task: Task) {
+        context.delete(task)
+        
+        saveTask()
+    }
+    
+    static func retrieveTask() -> [Task] {
+        do {
+            let fetchRequest = NSFetchRequest<Task>(entityName: "Task")
+            let results = try context.fetch(fetchRequest)
+            
+            return results
+        } catch let error {
+            print("Could not fetch \(error.localizedDescription)")
+            
+            return []
+        }
+    }
 }
+
+
+
+
