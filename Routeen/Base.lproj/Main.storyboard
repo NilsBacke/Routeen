@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,20 +19,96 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Routeen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPN-WI-RUO">
-                                <rect key="frame" x="155" y="77" width="64" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRk-3A-qzw">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Routeen" id="WmP-zF-ZeA"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP1-NF-nLo">
+                                <rect key="frame" x="132" y="64" width="111.5" height="229"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="200"/>
+                                <color key="textColor" red="0.11372549019607843" green="0.792156862745098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day Streak" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr5-y6-ImL">
+                                <rect key="frame" x="100.5" y="293" width="174" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Sr5-y6-ImL" secondAttribute="height" multiplier="87:23" id="3j9-Hh-JWm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep it up!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-IO-8vM">
+                                <rect key="frame" x="123.5" y="347" width="128.5" height="35"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's tasks:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4p-Pb-brn">
+                                <rect key="frame" x="29" y="398" width="169" height="35"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wrF-P7-7D4">
+                                <rect key="frame" x="29" y="441" width="317" height="226"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5KQ-aB-2hN">
+                                        <rect key="frame" x="0.0" y="28" width="317" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5KQ-aB-2hN" id="jqQ-PN-ISE">
+                                            <rect key="frame" x="0.0" y="0.0" width="317" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brush teeth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX3-RV-rE0">
+                                                    <rect key="frame" x="15" y="12" width="89" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Sr5-y6-ImL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0vO-Qs-gwt"/>
+                            <constraint firstItem="oS8-IO-8vM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1Xm-hj-o70"/>
+                            <constraint firstItem="Sr5-y6-ImL" firstAttribute="top" secondItem="TP1-NF-nLo" secondAttribute="bottom" id="4l9-qW-0MI"/>
+                            <constraint firstItem="J4p-Pb-brn" firstAttribute="top" secondItem="oS8-IO-8vM" secondAttribute="bottom" constant="16" id="9PF-RD-yV0"/>
+                            <constraint firstItem="TP1-NF-nLo" firstAttribute="top" secondItem="eRk-3A-qzw" secondAttribute="bottom" id="Agg-vF-UfZ"/>
+                            <constraint firstAttribute="bottom" secondItem="wrF-P7-7D4" secondAttribute="bottom" id="Gjh-eu-kuq"/>
+                            <constraint firstItem="eRk-3A-qzw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HTA-uN-XvZ"/>
+                            <constraint firstItem="J4p-Pb-brn" firstAttribute="top" secondItem="oS8-IO-8vM" secondAttribute="bottom" constant="16" id="KM9-Tw-OMb"/>
+                            <constraint firstItem="wrF-P7-7D4" firstAttribute="top" secondItem="J4p-Pb-brn" secondAttribute="bottom" constant="8" id="Ksp-NK-C1h"/>
+                            <constraint firstItem="TP1-NF-nLo" firstAttribute="top" secondItem="eRk-3A-qzw" secondAttribute="bottom" id="NlZ-Mh-BTI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="J4p-Pb-brn" secondAttribute="trailing" constant="177" id="OnJ-bZ-imj"/>
+                            <constraint firstItem="wrF-P7-7D4" firstAttribute="top" secondItem="J4p-Pb-brn" secondAttribute="bottom" constant="8" id="SWb-x8-Z3O"/>
+                            <constraint firstItem="wrF-P7-7D4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VrI-iw-qHQ"/>
+                            <constraint firstItem="wrF-P7-7D4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="29" id="Wo1-mu-iRN"/>
+                            <constraint firstItem="eRk-3A-qzw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eq0-6b-qPS"/>
+                            <constraint firstItem="oS8-IO-8vM" firstAttribute="top" secondItem="Sr5-y6-ImL" secondAttribute="bottom" constant="8" id="glL-ew-lR9"/>
+                            <constraint firstItem="TP1-NF-nLo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hLP-mT-Ljd"/>
+                            <constraint firstItem="eRk-3A-qzw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="l76-Pe-ct6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wrF-P7-7D4" secondAttribute="trailing" constant="29" id="l95-GB-eJ3"/>
+                            <constraint firstItem="J4p-Pb-brn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="29" id="rQt-2C-S7d"/>
+                            <constraint firstItem="wrF-P7-7D4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="suq-BX-qhu"/>
+                            <constraint firstItem="oS8-IO-8vM" firstAttribute="top" secondItem="Sr5-y6-ImL" secondAttribute="bottom" constant="8" id="vJf-Sv-NYE"/>
+                            <constraint firstItem="TP1-NF-nLo" firstAttribute="top" secondItem="eRk-3A-qzw" secondAttribute="bottom" id="zq0-Nb-e6X"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
     </scenes>
 </document>
