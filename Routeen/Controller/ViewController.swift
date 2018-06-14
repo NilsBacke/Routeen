@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var tasks = ["Brush teeth", "Wash face", "dasd", "d", "d", "d", "d", "d"]
+    var tasks = ["Brush teeth", "Wash face", "Get Groceries", "Pickup Dog", "Shower", "Do Homework", "Schedule Meeting", "Eat"]
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
@@ -20,6 +20,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         cell.textLabel?.text = tasks[indexPath.row]
         return cell
+        
+//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+//        let task = tasks[indexPath.row]
+//        cell.taskTitleLabel.text = task.title
+//        return cell
     }
 
     override func viewDidLoad() {
