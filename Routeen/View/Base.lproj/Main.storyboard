@@ -140,13 +140,8 @@
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addButtonTapped:" destination="6tx-bo-ptS" eventType="touchUpInside" id="12k-3B-M5A"/>
+                                            <action selector="addButtonTapped:" destination="6tx-bo-ptS" eventType="touchUpInside" id="zkq-oW-14j"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -166,37 +161,24 @@
                                 <rect key="frame" x="0.0" y="153" width="375" height="514"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="50" id="IRX-3O-gJU" customClass="CustomTableViewCell" customModule="Routeen">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="IRX-3O-gJU" customClass="CustomTableViewCell" customModule="Routeen">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IRX-3O-gJU" id="AdN-9x-1Je">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-7s-Kno">
-                                                    <rect key="frame" x="10" y="5" width="355" height="39.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCN-x2-ZXA">
-                                                            <rect key="frame" x="8" y="9" width="339" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="0.53686857876712324" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiW-IB-nYV">
+                                                    <rect key="frame" x="15" y="12" width="345" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="DYJ-7s-Kno" secondAttribute="bottom" constant="5" id="1Hz-Ds-6Ts"/>
-                                                <constraint firstAttribute="trailing" secondItem="DYJ-7s-Kno" secondAttribute="trailing" constant="10" id="IyE-xD-U1d"/>
-                                                <constraint firstItem="DYJ-7s-Kno" firstAttribute="top" secondItem="AdN-9x-1Je" secondAttribute="top" constant="5" id="aZV-Bv-eZz"/>
-                                                <constraint firstItem="DYJ-7s-Kno" firstAttribute="leading" secondItem="AdN-9x-1Je" secondAttribute="leading" constant="10" id="d2a-lU-gqL"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cellView" destination="DYJ-7s-Kno" id="kcE-R7-LlQ"/>
-                                            <outlet property="taskName" destination="OCN-x2-ZXA" id="zf2-ES-1fH"/>
+                                            <outlet property="taskName" destination="PiW-IB-nYV" id="P6K-ri-wN4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -221,7 +203,6 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="addButtonTapped" destination="WuQ-bt-kBj" id="p4S-Kb-581"/>
                         <outlet property="addTaskTextField" destination="vUf-y4-J0D" id="ehZ-G0-xfe"/>
                         <outlet property="tableView" destination="FeO-nr-FBE" id="f8p-pe-8i5"/>
                     </connections>
