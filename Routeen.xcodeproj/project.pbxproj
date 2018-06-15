@@ -12,6 +12,8 @@
 		2929419220CC92E70018C02B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2929419020CC92E70018C02B /* Main.storyboard */; };
 		2929419420CC92EA0018C02B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2929419320CC92EA0018C02B /* Assets.xcassets */; };
 		2929419720CC92EA0018C02B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2929419520CC92EA0018C02B /* LaunchScreen.storyboard */; };
+		29F1AADB20D34130004DC4D3 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1AADA20D34130004DC4D3 /* CustomTableViewCell.swift */; };
+		29F1AADD20D34201004DC4D3 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1AADC20D34201004DC4D3 /* CustomTableViewController.swift */; };
 		7A6DCED620CD7FDF00FAA3C1 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6DCED520CD7FDF00FAA3C1 /* CoreDataHelper.swift */; };
 		7A8C2DEA20CD7BB8000F2267 /* taskModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C2DE820CD7BB8000F2267 /* taskModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -24,6 +26,8 @@
 		2929419320CC92EA0018C02B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2929419620CC92EA0018C02B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2929419820CC92EA0018C02B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29F1AADA20D34130004DC4D3 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		29F1AADC20D34201004DC4D3 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		7A6DCED520CD7FDF00FAA3C1 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		7A8C2DE920CD7BB8000F2267 /* taskModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = taskModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +94,8 @@
 			children = (
 				2929418C20CC92E70018C02B /* AppDelegate.swift */,
 				2929418E20CC92E70018C02B /* ViewController.swift */,
+				29F1AADC20D34201004DC4D3 /* CustomTableViewController.swift */,
+				29F1AADA20D34130004DC4D3 /* CustomTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,8 +180,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A8C2DEA20CD7BB8000F2267 /* taskModel.xcdatamodeld in Sources */,
+				29F1AADB20D34130004DC4D3 /* CustomTableViewCell.swift in Sources */,
 				2929418F20CC92E70018C02B /* ViewController.swift in Sources */,
 				7A6DCED620CD7FDF00FAA3C1 /* CoreDataHelper.swift in Sources */,
+				29F1AADD20D34201004DC4D3 /* CustomTableViewController.swift in Sources */,
 				2929418D20CC92E70018C02B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
