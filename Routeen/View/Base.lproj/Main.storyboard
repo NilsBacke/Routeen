@@ -106,6 +106,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="streakLabel" destination="TP1-NF-nLo" id="NTV-Ws-s3Q"/>
                         <outlet property="tableView" destination="wrF-P7-7D4" id="822-Xt-8oV"/>
                     </connections>
                 </viewController>
