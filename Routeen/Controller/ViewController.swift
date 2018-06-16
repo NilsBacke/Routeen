@@ -14,8 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var streakLabel: UILabel!
     
     var streak = 0;
-    
-    var tasks = ["Brush teeth", "Wash face", "Get Groceries", "Pickup Dog", "Shower", "Do Homework", "Schedule Meeting", "Eat"]
+    var tasks:[Task] = []
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
@@ -23,52 +22,59 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        cell.textLabel?.text = tasks[indexPath.row]
+        cell.textLabel?.text = tasks[indexPath.row].name
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         return cell
-        
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBar.topItem?.title = "Routeen"
+        tasks = CoreDataHandler.fetchObject()
         
-        // check for all completed
-        var allCompleted = true;
-        for task in tasks {
-            if (!task.completed) {
-                allCompleted = false;
-            }
-        }
-        if (allCompleted == true) {
-            streak += 1;
-            // lock checkboxes and congratulate
-        }
+//        if CoreDataHandler.saveObject(name: "Do laundry", date: "15") {
+//            test = CoreDataHandler.fetchObject()
+//            
+//            for i in test! {
+//                print(i.name!)
+//            }
+//        }
         
-        // get date
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        let today = formatter.string(from: date)
-        
-        // check for loss of streak
-        for task in tasks {
-            let dayDifference = Int(today) - task.date
-            // will not work if today is a new month
-            // fix:
-            // include month in the dateFormatter
-            // if the two months are not equal
-            // switch statement for how many days are in certain months
-            if (dayDifference > 1) {
-                streak = 0;
-            }
-        }
-        
-        
-        streakLabel.text = String(streak)
+//        // check for all completed
+//        var allCompleted = true;
+//        for task in tasks {
+//            if (!task.completed) {
+//                allCompleted = false;
+//            }
+//        }
+//        if (allCompleted == true) {
+//            streak += 1;
+//            // lock checkboxes and congratulate
+//        }
+//
+//        // get date
+//        let date = Date()
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd"
+//        let today = formatter.string(from: date)
+//
+//        // check for loss of streak
+//        for task in tasks {
+//            let dayDifference = Int(today) - task.date
+//            // will not work if today is a new month
+//            // fix:
+//            // include month in the dateFormatter
+//            // if the two months are not equal
+//            // switch statement for how many days are in certain months
+//            if (dayDifference > 1) {
+//                streak = 0;
+//            }
+//        }
+//
+//
+//        streakLabel.text = String(streak)
     }
  
 }
