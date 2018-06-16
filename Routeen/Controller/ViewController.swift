@@ -25,16 +25,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.layer.masksToBounds = true
         return cell
         
-//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-//        let task = tasks[indexPath.row]
-//        cell.taskTitleLabel.text = task.title
-//        return cell
+
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBar.topItem?.title = "Routeen"
+        self
     }
  
 }
