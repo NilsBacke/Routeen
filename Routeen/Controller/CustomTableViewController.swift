@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CustomTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -14,7 +15,10 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var addTaskTextField: UITextField!
     
-    var tasks = ["Brush teeth", "Wash face", "Get Groceries", "Pickup Dog", "Shower", "Do Homework", "Schedule Meeting", "Eat"]
+ 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var items: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,22 +28,59 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        insertNewTask()
-    }
+        let entity = NSEntityDescription.entity(forEntityName: "Task", in: context)
+       let  textFieldName = addTaskTextField.text!
+        let managedObject = NSManagedObject(entity: (entity)!, insertInto: context)
+        managedObject.setValue(textFieldName, forKey: "name")
     
-    func insertNewTask() {
-        tasks.append(addTaskTextField.text!)
-        let indexPath = IndexPath(row: tasks.count - 1, section: 0)
-        tableView.beginUpdates()
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        tableView.endUpdates()
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        let today = formatter.string(from: date)
         
-        addTaskTextField.text = ""
-        view.endEditing(true)
+        managedObject.setValue(today, forKey: "date")
+        managedObject.setValue(true, forKey:"completed" )
+        
+        do{
+            try context.save()
+            items.append(managedObject)
+            
+        }
+        catch let err as NSError{
+            print("failed to save an item", err)
+        }
+        
+    
     }
     
+  
+//    func displayTask() {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let managerContext = appDelegate.persistentContainer.viewContext
+//
+//        let task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: managerContext) as! Task
+//        task.setValue(addTaskTextField.text!, forKey: "name")
+//
+//
+//        let indexPath = IndexPath(row: tasks.count - 1, section: 0)
+//        tableView.beginUpdates()
+//        tableView.insertRows(at: [indexPath], with: .automatic)
+//        tableView.endUpdates()
+//        self.tasks.append(addTaskTextField.text!)
+//
+//        addTaskTextField.text = ""
+//        do{
+//            try managerContext.save()
+//            print("saved")
+//        }catch let error as NSError{
+//            //errore salvataggio
+//            print("Could not fetch \(error), \(error.userInfo) as Any")
+//        }
+//        view.endEditing(true)
+//    }
+//
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -48,8 +89,13 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! CustomTableViewCell
-        cell.taskName.text = tasks[indexPath.row]
+        let item = items[indexPath.row]
+        cell.textLabel?.text = item.value(forKey: "name") as! String
+       
+    
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -58,7 +104,7 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tasks.remove(at: indexPath.row)
+            items.remove(at: indexPath.row)
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()

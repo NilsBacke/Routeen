@@ -28,10 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.layer.masksToBounds = true
         return cell
         
-//        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-//        let task = tasks[indexPath.row]
-//        cell.taskTitleLabel.text = task.title
-//        return cell
+
     }
 
     override func viewDidLoad() {
