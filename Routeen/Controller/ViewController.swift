@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -95,7 +96,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
                 print("streak altered")
             }
-            // lock checkboxes and congratulate
+            // clear table and congratulate
+            tasks.removeAll()
+            tableView.reloadData()
+            
+            SCLAlertView().showTitle("Congratulations!", subTitle: "You have completed all of today's tasks", style: .success, closeButtonTitle: "Done", colorStyle: 0x1dcaff)
         }
         
         
