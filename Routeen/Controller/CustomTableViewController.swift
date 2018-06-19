@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CustomTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addTaskTextField: UITextField!
@@ -20,30 +20,14 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.addTaskTextField.delegate = self
         
         tasks = CoreDataHandler.fetchObject()
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        let today = formatter.string(from: date)
-        
-        let indexPath = IndexPath(row: tasks.count, section: 0)
-        tableView.beginUpdates()
-        
-        if CoreDataHandler.saveObject(name: addTaskTextField.text!, date: today, isCompleted: false) {
-            print("Saved \(addTaskTextField.text!)")
-        }
-        self.tasks = CoreDataHandler.fetchObject()
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        tableView.endUpdates()
-        print("\(tasks)")
-        
-        
-        addTaskTextField.text = ""
+      addButton()
         
     }
 
@@ -80,15 +64,34 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addTaskTextField.resignFirstResponder()
+        addButton()
+        return true
     }
-    */
+    
+    
+    func addButton() {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        let today = formatter.string(from: date)
+        
+        let indexPath = IndexPath(row: tasks.count, section: 0)
+        tableView.beginUpdates()
+        
+        if CoreDataHandler.saveObject(name: addTaskTextField.text!, date: today, isCompleted: false) {
+            print("Saved \(addTaskTextField.text!)")
+        }
+        self.tasks = CoreDataHandler.fetchObject()
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+        print("\(tasks)")
+        
+        
+        addTaskTextField.text = ""
+        
+    }
+
 
 }
