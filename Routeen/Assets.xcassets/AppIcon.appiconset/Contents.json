@@ -13,13 +13,12 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "routeen_icon@2x.png",
+      "filename" : "iconsnew.png",
       "scale" : "2x"
     },
     {
+      "idiom" : "iphone",
       "size" : "29x29",
-      "idiom" : "iphone",
-      "filename" : "routeen_icon@3x.png",
       "scale" : "3x"
     },
     {
@@ -33,15 +32,13 @@
       "scale" : "3x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "routeen_icon@2x-1.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "routeen_icon@3x-1.png",
+      "size" : "60x60",
       "scale" : "3x"
     },
     {
