@@ -57,6 +57,9 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! CustomTableViewCell
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        
         let task = tasks[indexPath.row]
         cell.taskName.text = task.name
     
