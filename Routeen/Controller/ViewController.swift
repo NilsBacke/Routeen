@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tasks = CoreDataHandler.fetchObject()
+        tasks = CoreDataHandler.fetchTask()
         tableView.reloadData()
         print("appear")
     }
@@ -28,9 +28,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("load")
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBar.topItem?.title = "Routeen"
-        tasks = CoreDataHandler.fetchObject()
+        tasks = CoreDataHandler.fetchTask()
         
         calculateStreak()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,15 +64,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)")
-        if CoreDataHandler.completeObject(task: tasks[indexPath.row]) {
+        if CoreDataHandler.completeTask(task: tasks[indexPath.row]) {
             print("altered")
         }
-        tasks = CoreDataHandler.fetchObject()
+        tasks = CoreDataHandler.fetchTask()
         tableView.reloadData()
+        calculateStreak()
         print("\(tasks)")
     }
     
     func calculateStreak() {
+        let today = getToday()
+        
         // check for all completed
         var allCompleted = true;
         for task in tasks {
@@ -81,11 +88,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // lock checkboxes and congratulate
         }
         
-        // get date
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        let today = formatter.string(from: date)
         
         // check for loss of streak
         for task in tasks {
@@ -100,8 +102,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         
-        
         streakLabel.text = String(streak)
+    }
+    
+    func getToday() -> String {
+        // get date
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: date)
     }
  
 }

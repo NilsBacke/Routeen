@@ -22,7 +22,7 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.addTaskTextField.delegate = self
         
-        tasks = CoreDataHandler.fetchObject()
+        tasks = CoreDataHandler.fetchTask()
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -56,12 +56,12 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if CoreDataHandler.deleteObject(task: tasks[indexPath.row]) {
+            if CoreDataHandler.deleteTask(task: tasks[indexPath.row]) {
                 print("deleted")
             }
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            tasks = CoreDataHandler.fetchObject()
+            tasks = CoreDataHandler.fetchTask()
             tableView.endUpdates()
         }
 
@@ -83,10 +83,10 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         let indexPath = IndexPath(row: tasks.count, section: 0)
         tableView.beginUpdates()
         
-        if CoreDataHandler.saveObject(name: addTaskTextField.text!, date: today, isCompleted: false) {
+        if CoreDataHandler.saveTask(name: addTaskTextField.text!, date: today, isCompleted: false) {
             print("Saved \(addTaskTextField.text!)")
         }
-        self.tasks = CoreDataHandler.fetchObject()
+        self.tasks = CoreDataHandler.fetchTask()
         tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
         print("\(tasks)")

@@ -16,7 +16,7 @@ class CoreDataHandler: NSObject {
         return appDelegate.persistentContainer.viewContext
     }
     
-    class func saveObject(name:String, date:String, isCompleted:Bool) -> Bool {
+    class func saveTask(name:String, date:String, isCompleted:Bool) -> Bool {
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Task", in: context)
         let manageObject = NSManagedObject(entity: entity!, insertInto: context)
@@ -32,7 +32,7 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func fetchObject() -> [Task] {
+    class func fetchTask() -> [Task] {
         let context = getContext()
         var tasks:[Task] = []
         do {
@@ -43,7 +43,7 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func completeObject(task: Task) -> Bool {
+    class func completeTask(task: Task) -> Bool {
         let context = getContext()
         if task.isCompleted {
             task.setValue(false, forKey: "isCompleted")
@@ -59,9 +59,51 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func deleteObject(task: Task) -> Bool {
+    class func deleteTask(task: Task) -> Bool {
         let context = getContext()
         context.delete(task)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    class func saveStreak(streak:Int, dateLastCompleted:String) -> Bool {
+        let context = getContext()
+        let entity = NSEntityDescription.entity(forEntityName: "Streak", in: context)
+        let manageObject = NSManagedObject(entity: entity!, insertInto: context)
+        manageObject.setValue(streak, forKey: "streak")
+        manageObject.setValue(dateLastCompleted, forKey: "dateLastCompleted")
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    class func fetchStreak() -> Streak {
+        let context = getContext()
+        var streaks:[Streak] = []
+//        do {
+//            tasks = try context.fetch(Streak.fetchRequest())
+//            return streaks
+//        } catch {
+//            return streaks
+//        }
+    }
+    
+    class func alterStreak(streak: Int, dateLastCompleted: String) -> Bool {
+        let context = getContext()
+        if task.isCompleted {
+            task.setValue(false, forKey: "isCompleted")
+        } else {
+            task.setValue(true, forKey: "isCompleted")
+        }
         
         do {
             try context.save()
