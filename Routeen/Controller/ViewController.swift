@@ -13,14 +13,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var streakLabel: UILabel!
+    @IBOutlet weak var keepItUp: UILabel!
     
     var streaks:[Streak] = []
     var tasks:[Task] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tasks = CoreDataHandler.fetchTask()
         streaks = CoreDataHandler.fetchStreak()
+        if streaks.count > 0 && getToday() != streaks[0].dateLastCompleted {
+            tasks = CoreDataHandler.fetchTask()
+            keepItUp.text = "Keep It Up!"
+        } else {
+            tasks.removeAll()
+        }
+        
         tableView.reloadData()
         print("appear")
     }
@@ -59,11 +66,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.taskName.text = task.name
         if task.isCompleted {
             cell.isCompleted.text = "Completed"
+            cell.isCompleted.textAlignment = .center
+            cell.isCompleted.textColor = UIColor.green
             cell.layer.borderWidth = 2.0
             cell.layer.cornerRadius = 8
             cell.layer.borderColor = UIColor.blue.cgColor
         } else {
             cell.isCompleted.text = "Not Completed"
+            cell.isCompleted.textColor = UIColor.red
             cell.layer.borderWidth = 0
         }
         return cell
@@ -90,16 +100,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 allCompleted = false;
             }
         }
-        if (allCompleted == true && !tasks.isEmpty && streaks.count > 0 && streaks[0].dateLastCompleted != today) {
-            
-            let currentStreak = streaks[0].streak
-            if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
-                print("streak altered")
+        if (allCompleted == true && !tasks.isEmpty && streaks.count > 0) {
+            if streaks[0].dateLastCompleted != today {
+                let currentStreak = streaks[0].streak
+                if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
+                    print("streak altered")
+                }
+                showAlertView();
             }
             // clear table and congratulate
             tasks.removeAll()
             tableView.reloadData()
-            showAlertView();
+            keepItUp.text = "Come Back Tomorrow!"
         }
         
         

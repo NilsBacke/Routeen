@@ -57,8 +57,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="317" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Not Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96M-gh-FNy">
-                                                    <rect key="frame" x="170" y="6" width="132" height="33"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96M-gh-FNy">
+                                                    <rect key="frame" x="180" y="15" width="132" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="132" id="IPM-OS-lUx"/>
                                                     </constraints>
@@ -66,15 +66,20 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX3-RV-rE0">
-                                                    <rect key="frame" x="15" y="8" width="140" height="28"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX3-RV-rE0">
+                                                    <rect key="frame" x="10" y="15" width="162" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="96M-gh-FNy" firstAttribute="top" secondItem="jqQ-PN-ISE" secondAttribute="top" constant="15" id="Co9-UW-NTl"/>
+                                                <constraint firstItem="fX3-RV-rE0" firstAttribute="leading" secondItem="jqQ-PN-ISE" secondAttribute="leading" constant="10" id="Ysx-q2-QAh"/>
+                                                <constraint firstAttribute="trailing" secondItem="96M-gh-FNy" secondAttribute="trailing" constant="10" id="aft-oL-hMg"/>
+                                                <constraint firstItem="fX3-RV-rE0" firstAttribute="top" secondItem="jqQ-PN-ISE" secondAttribute="top" constant="15" id="diV-w9-dMu"/>
                                                 <constraint firstItem="96M-gh-FNy" firstAttribute="leading" secondItem="fX3-RV-rE0" secondAttribute="trailing" constant="8" id="dwa-EP-9XA"/>
+                                                <constraint firstAttribute="trailing" secondItem="96M-gh-FNy" secondAttribute="trailing" constant="5" id="lZC-y4-vN8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -121,6 +126,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="keepItUp" destination="oS8-IO-8vM" id="d1N-Sj-A5Y"/>
                         <outlet property="streakLabel" destination="TP1-NF-nLo" id="NTV-Ws-s3Q"/>
                         <outlet property="tableView" destination="wrF-P7-7D4" id="822-Xt-8oV"/>
                     </connections>
