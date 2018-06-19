@@ -99,8 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // clear table and congratulate
             tasks.removeAll()
             tableView.reloadData()
-            
-            SCLAlertView().showTitle("Congratulations!", subTitle: "You have completed all of today's tasks", style: .success, closeButtonTitle: "Done", colorStyle: 0x1dcaff)
+            showAlertView();
         }
         
         
@@ -132,6 +131,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let formatter = DateFormatter()
         formatter.dateFormat = "dd"
         return formatter.string(from: date)
+    }
+    
+    func showAlertView() {
+        SCLAlertView().showTitle("Congratulations!", subTitle: "You have completed all of today's tasks. Come back tomorrow to continue your streak.", style: .success, closeButtonTitle: "Done", colorStyle: 0x1dcaff)
     }
  
 }
