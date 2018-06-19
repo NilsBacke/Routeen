@@ -38,15 +38,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        cell.textLabel?.text = tasks[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomHomeScreenTableViewCell
+        
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
+        
+        let task = tasks[indexPath.row]
+        cell.taskName.text = task.name
+        if task.isCompleted {
+            cell.isCompleted.text = "Completed"
+            cell.layer.borderWidth = 2.0
+            cell.layer.cornerRadius = 8
+            cell.layer.borderColor = UIColor.blue.cgColor
+        } else {
+            cell.isCompleted.text = "Not Completed"
+            cell.layer.borderWidth = 0
+//            cell.isCompleted.layer.cornerRadius = 0
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)")
+        if CoreDataHandler.completeObject(task: tasks[indexPath.row]) {
+            print("altered")
+        }
+        tasks = CoreDataHandler.fetchObject()
+        tableView.reloadData()
+        print("\(tasks)")
     }
     
     func calculateStreak() {
