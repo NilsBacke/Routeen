@@ -13,12 +13,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var streakLabel: UILabel!
     
-    var streak = 0;
+    var streaks:[Streak] = []
     var tasks:[Task] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tasks = CoreDataHandler.fetchTask()
+        streaks = CoreDataHandler.fetchStreak()
         tableView.reloadData()
         print("appear")
     }
@@ -29,7 +30,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationController?.navigationBar.topItem?.title = "Routeen"
         tasks = CoreDataHandler.fetchTask()
-        
+        streaks = CoreDataHandler.fetchStreak()
+        let today:Int = Int(getToday())! - 1
+        if streaks.count == 0 {
+            if CoreDataHandler.saveStreak(streak: 0, dateLastCompleted: String(today)) {
+                print("streak saved")
+            }
+        }
         calculateStreak()
     }
     
@@ -57,7 +64,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             cell.isCompleted.text = "Not Completed"
             cell.layer.borderWidth = 0
-//            cell.isCompleted.layer.cornerRadius = 0
         }
         return cell
     }
@@ -75,7 +81,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func calculateStreak() {
         let today = getToday()
-        
+        streaks = CoreDataHandler.fetchStreak()
         // check for all completed
         var allCompleted = true;
         for task in tasks {
@@ -83,8 +89,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 allCompleted = false;
             }
         }
-        if (allCompleted == true && !tasks.isEmpty) {
-            streak += 1;
+        if (allCompleted == true && !tasks.isEmpty && streaks.count > 0 && streaks[0].dateLastCompleted != today) {
+            
+            let currentStreak = streaks[0].streak
+            if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
+                print("streak altered")
+            }
             // lock checkboxes and congratulate
         }
         
@@ -98,11 +108,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // if the two months are not equal
             // switch statement for how many days are in certain months
             if (dayDifference > 1) {
-                streak = 0;
+                if CoreDataHandler.alterStreak(streak: 0, dateLastCompleted: today) {
+                    print("reset")
+                }
             }
         }
         
-        streakLabel.text = String(streak)
+        streaks = CoreDataHandler.fetchStreak()
+        if streaks.count != 0 {
+            streakLabel.text = String(streaks[0].streak)
+        }
+        print("\(streaks)")
     }
     
     func getToday() -> String {
