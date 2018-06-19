@@ -86,24 +86,22 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func fetchStreak() -> Streak {
+    class func fetchStreak() -> [Streak] {
         let context = getContext()
         var streaks:[Streak] = []
-//        do {
-//            tasks = try context.fetch(Streak.fetchRequest())
-//            return streaks
-//        } catch {
-//            return streaks
-//        }
+        do {
+            streaks = try context.fetch(Streak.fetchRequest())
+            return streaks
+        } catch {
+            return streaks
+        }
     }
     
     class func alterStreak(streak: Int, dateLastCompleted: String) -> Bool {
         let context = getContext()
-        if task.isCompleted {
-            task.setValue(false, forKey: "isCompleted")
-        } else {
-            task.setValue(true, forKey: "isCompleted")
-        }
+        var streaks:[Streak] = fetchStreak()
+        streaks[0].streak = Int16(streak)
+        streaks[0].dateLastCompleted = dateLastCompleted
         
         do {
             try context.save()
