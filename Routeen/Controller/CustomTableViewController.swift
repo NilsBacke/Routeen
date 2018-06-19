@@ -31,17 +31,16 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         formatter.dateFormat = "dd"
         let today = formatter.string(from: date)
         
-        let indexPath = IndexPath(row: tasks.count - 1, section: 0)
+        let indexPath = IndexPath(row: tasks.count, section: 0)
         tableView.beginUpdates()
-        tableView.insertRows(at: [indexPath], with: .automatic)
         
-        if CoreDataHandler.saveObject(name: addTaskTextField.text!, date: today) {
+        if CoreDataHandler.saveObject(name: addTaskTextField.text!, date: today, isCompleted: false) {
             print("Saved \(addTaskTextField.text!)")
         }
-        
         self.tasks = CoreDataHandler.fetchObject()
-        
+        tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
+        print("\(tasks)")
         
         
         addTaskTextField.text = ""
@@ -60,8 +59,6 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell") as! CustomTableViewCell
         let task = tasks[indexPath.row]
         cell.taskName.text = task.name
-        
-        
     
         return cell
     }
@@ -70,15 +67,18 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         return true
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            tasks.remove(at: indexPath.row)
-//            tableView.beginUpdates()
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            tableView.endUpdates()
-//        }
-//
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if CoreDataHandler.deleteObject(task: tasks[indexPath.row]) {
+                print("deleted")
+            }
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tasks = CoreDataHandler.fetchObject()
+            tableView.endUpdates()
+        }
+
+    }
     
 
     /*

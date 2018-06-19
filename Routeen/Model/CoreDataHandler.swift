@@ -16,12 +16,13 @@ class CoreDataHandler: NSObject {
         return appDelegate.persistentContainer.viewContext
     }
     
-    class func saveObject(name:String, date:String) -> Bool {
+    class func saveObject(name:String, date:String, isCompleted:Bool) -> Bool {
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Task", in: context)
         let manageObject = NSManagedObject(entity: entity!, insertInto: context)
         manageObject.setValue(name, forKey: "name")
         manageObject.setValue(date, forKey: "date")
+        manageObject.setValue(isCompleted, forKey: "isCompleted")
         
         do {
             try context.save()
@@ -39,6 +40,18 @@ class CoreDataHandler: NSObject {
             return tasks
         } catch {
             return tasks
+        }
+    }
+    
+    class func deleteObject(task: Task) -> Bool {
+        let context = getContext()
+        context.delete(task)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
         }
     }
 }
