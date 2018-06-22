@@ -59,6 +59,26 @@ class CoreDataHandler: NSObject {
         }
     }
     
+    class func completeAllTasks() -> Bool {
+        let context = getContext()
+        let tasks:[Task] = fetchTask()
+        
+        for task in tasks {
+            if task.isCompleted {
+                task.setValue(false, forKey: "isCompleted")
+            } else {
+                task.setValue(true, forKey: "isCompleted")
+            }
+        }
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     class func deleteTask(task: Task) -> Bool {
         let context = getContext()
         context.delete(task)

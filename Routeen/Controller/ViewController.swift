@@ -22,11 +22,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidAppear(animated)
         streaks = CoreDataHandler.fetchStreak()
         if streaks.count > 0 && getToday() != streaks[0].dateLastCompleted {
-            tasks = CoreDataHandler.fetchTask()
             keepItUp.text = "Keep It Up!"
         } else {
             tasks.removeAll()
         }
+        
+        resetTasks()
+        calculateStreak()
         
         tableView.reloadData()
         print("appear")
@@ -45,7 +47,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("streak saved")
             }
         }
-        calculateStreak()
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,22 +95,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func calculateStreak() {
         let today = getToday()
         streaks = CoreDataHandler.fetchStreak()
+        
         // check for all completed
-        var allCompleted = true;
-        for task in tasks {
-            if (!task.isCompleted) {
-                allCompleted = false;
-            }
-        }
+        let allCompleted = getAllCompleted()
         if (allCompleted == true && !tasks.isEmpty && streaks.count > 0) {
             if streaks[0].dateLastCompleted != today {
                 let currentStreak = streaks[0].streak
                 if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
                     print("streak altered")
                 }
-                showAlertView();
             }
             // clear table and congratulate
+            showAlertView();
             tasks.removeAll()
             tableView.reloadData()
             keepItUp.text = "Come Back Tomorrow!"
@@ -123,7 +121,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // include month in the dateFormatter
             // if the two months are not equal
             // switch statement for how many days are in certain months
+            
+            // lost streak
             if (dayDifference > 1) {
+                showLossAlertView()
                 if CoreDataHandler.alterStreak(streak: 0, dateLastCompleted: today) {
                     print("reset")
                 }
@@ -137,6 +138,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("\(streaks)")
     }
     
+    func resetTasks() {
+        tasks = CoreDataHandler.fetchTask()
+        if getAllCompleted() && getToday() != streaks[0].dateLastCompleted {
+            if CoreDataHandler.completeAllTasks() {
+                print("completed all")
+            }
+            tasks = CoreDataHandler.fetchTask()
+        } else if getAllCompleted() {
+            tasks.removeAll()
+        }
+        tableView.reloadData()
+    }
+    
+    func getAllCompleted() -> Bool {
+        let tasks = CoreDataHandler.fetchTask()
+        var allCompleted = true;
+        for task in tasks {
+            if (!task.isCompleted) {
+                allCompleted = false;
+            }
+        }
+        return allCompleted
+    }
+    
     func getToday() -> String {
         // get date
         let date = Date()
@@ -147,6 +172,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func showAlertView() {
         SCLAlertView().showTitle("Congratulations!", subTitle: "You have completed all of today's tasks. Come back tomorrow to continue your streak.", style: .success, closeButtonTitle: "Done", colorStyle: 0x1dcaff)
+    }
+    
+    func showLossAlertView() {
+        SCLAlertView().showTitle("Sorry, you lost your streak.", subTitle: "Start up another one!", style: .warning, closeButtonTitle: "Close", colorStyle: 0x1dcaff)
     }
  
 }
