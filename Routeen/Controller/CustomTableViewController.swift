@@ -25,11 +25,10 @@ class CustomTableViewController: UIViewController, UITableViewDelegate, UITableV
         tasks = CoreDataHandler.fetchTask()
     }
     
-    @IBAction func addButtonTapped(_ sender: UIButton) {
-        
-      addButton()
-        
+    @IBAction func addButtonTapped(_ sender: Any) {
+        addButton()
     }
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count

@@ -9,7 +9,7 @@
 import UIKit
 import SCLAlertView
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var streakLabel: UILabel!
@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("appear")
         streaks = CoreDataHandler.fetchStreak()
         if streaks.count > 0 && getToday() != streaks[0].dateLastCompleted {
             keepItUp.text = "Keep It Up!"
@@ -30,8 +31,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         resetTasks()
         calculateStreak()
         
+        print("\(tasks)")
         tableView.reloadData()
-        print("appear")
     }
 
     override func viewDidLoad() {
@@ -54,11 +55,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 50
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("for row at")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CustomHomeScreenTableViewCell
         
         cell.layer.cornerRadius = 10
@@ -78,6 +80,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.isCompleted.textColor = UIColor.red
             cell.layer.borderWidth = 0
         }
+        print("\(cell)")
         return cell
     }
     
