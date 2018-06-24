@@ -89,20 +89,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tasks = CoreDataHandler.fetchTask()
         tableView.reloadData()
         calculateStreak()
-        print("\(tasks)")
     }
     
     func calculateStreak() {
+        print("calc")
         let today = getToday()
         streaks = CoreDataHandler.fetchStreak()
+        
+        print("Today: \(today)")
         
         // check for all completed
         let allCompleted = getAllCompleted()
         if (allCompleted == true && !tasks.isEmpty && streaks.count > 0) {
             if streaks[0].dateLastCompleted != today {
                 let currentStreak = streaks[0].streak
-                if CoreDataHandler.alterStreak(streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
+                print("current streak: \(currentStreak)")
+                if CoreDataHandler.alterStreak(streakObj: streaks[0], streak: Int(Int16(currentStreak + 1)), dateLastCompleted: today) {
+                    streaks = CoreDataHandler.fetchStreak()
                     print("streak altered")
+                    print("after fetch: \(streaks)")
                 }
             }
             // clear table and congratulate
@@ -114,6 +119,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         // check for loss of streak
+        streaks = CoreDataHandler.fetchStreak()
         for task in tasks {
             let dayDifference = Int(today)! - Int(task.date!)!
             // will not work if today is a new month
@@ -123,9 +129,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // switch statement for how many days are in certain months
             
             // lost streak
-            if (dayDifference > 1) {
+            if (dayDifference > 1 && streaks[0].streak != 0) {
                 showLossAlertView()
-                if CoreDataHandler.alterStreak(streak: 0, dateLastCompleted: today) {
+                if CoreDataHandler.alterStreak(streakObj: streaks[0], streak: 0, dateLastCompleted: today) {
                     print("reset")
                 }
             }

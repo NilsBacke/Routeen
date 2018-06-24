@@ -106,6 +106,18 @@ class CoreDataHandler: NSObject {
         }
     }
     
+    class func deleteStreak(streak: Streak) -> Bool {
+        let context = getContext()
+        context.delete(streak)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     class func fetchStreak() -> [Streak] {
         let context = getContext()
         var streaks:[Streak] = []
@@ -117,16 +129,10 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func alterStreak(streak: Int, dateLastCompleted: String) -> Bool {
-        let context = getContext()
-        var streaks:[Streak] = fetchStreak()
-        streaks[0].streak = Int16(streak)
-        streaks[0].dateLastCompleted = dateLastCompleted
-        
-        do {
-            try context.save()
+    class func alterStreak(streakObj: Streak, streak: Int, dateLastCompleted: String) -> Bool {
+        if deleteStreak(streak: streakObj) && saveStreak(streak: streak, dateLastCompleted: dateLastCompleted) {
             return true
-        } catch {
+        } else {
             return false
         }
     }
